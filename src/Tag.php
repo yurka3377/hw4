@@ -51,9 +51,6 @@ class Tag implements ViewInterface
 
     public function getView(string $inner = ''): string
     {
-        if (strlen($inner) > 0){
-            $this->inner = $inner;
-        }
         $attributes = '';
         foreach ($this->usedAttributes as $key => $value) {
             if ($this->availableAttrbutes[$key] === "novalue"){
@@ -63,11 +60,14 @@ class Tag implements ViewInterface
             }
             
         }
-        $nestedTags = '';
-        foreach ($this->nestedTags as $t) {
-            $nestedTags .= $t->getView();
-        }
         if ($this->isPair){
+            if (strlen($inner) > 0){
+                $this->inner = $inner;
+            }
+            $nestedTags = '';
+            foreach ($this->nestedTags as $t) {
+                $nestedTags .= $t->getView();
+            }
             $res = \sprintf('<%s %s>%s %s</%s>', $this->tagName, $attributes, $this->inner, $nestedTags, $this->tagName);
         }else{
             $res = \sprintf('<%s %s>', $this->tagName, $attributes);
