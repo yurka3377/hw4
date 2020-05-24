@@ -21,7 +21,7 @@ class Td extends Tag
                 'colspan' => 'integer',
                 'headers' => 'string',
                 'height' => 'string',
-                'nowrap' => 'none',
+                'nowrap' => 'novalue',
                 'rowspan' => 'integer',
                 'scope' => [ 'col', 'colgroup', 'row', 'rowgroup' ],
                 'valign' => [ 'top', 'middle', 'bottom', 'baseline' ],

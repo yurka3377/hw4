@@ -7,13 +7,15 @@ namespace App;
 class Tag implements ViewInterface
 {
     protected $tagName;
+    protected $isPair;
     protected $availableAtributes;
     protected $usedAttributes;
     protected $inner;
 
-    public function __construct(string $tagName, $availableAttributes)
+    public function __construct(string $tagName, $availableAttributes, $isPair=true)
     {
         $this->tagName = $tagName;
+        $this->isPair = $isPair;
         $this->availableAttrbutes = $availableAttributes;
         $this->usedAttributes = [];
         $this->nestedTags = [];
@@ -54,13 +56,23 @@ class Tag implements ViewInterface
         }
         $attributes = '';
         foreach ($this->usedAttributes as $key => $value) {
-            $attributes .= sprintf('%s="%s" ', $key, $value);
+            if ($this->availableAttrbutes[$key] === "novalue"){
+                $attributes .= $key;
+            }else{
+                $attributes .= sprintf('%s="%s" ', $key, $value);
+            }
+            
         }
         $nestedTags = '';
         foreach ($this->nestedTags as $t) {
             $nestedTags .= $t->getView();
         }
-        return \sprintf('<%s %s>%s %s</%s>', $this->tagName, $attributes, $this->inner, $nestedTags, $this->tagName);
+        if ($this->isPair){
+            $res = \sprintf('<%s %s>%s %s</%s>', $this->tagName, $attributes, $this->inner, $nestedTags, $this->tagName);
+        }else{
+            $res = \sprintf('<%s %s>', $this->tagName, $attributes);
+        }
+        return $res;
     }
 
 }

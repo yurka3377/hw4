@@ -6,7 +6,10 @@ use App\Tag;
 use App\Ul;
 use App\Menu;
 use App\Table;
-
+use App\InputText;
+use App\InputSubmit;
+use App\InputCheckbox;
+use App\InputFile;
 
 $menu = new Menu();
 $menu->setAttribute('type', 'list');
@@ -36,6 +39,13 @@ $row = $table->tr()->setAttribute('align', 'center');
     $row->td('4');
     $row->td('5');
     $row->td('6');
+echo $table->getView()."\n";
 
-echo $table->getView();
+$inputText = new InputText("firstName", 'Vasa');
+echo $inputText->getView()."\n";
 
+$inputCheckbox = new InputCheckbox("lang", 'PHP', false);
+echo $inputCheckbox->getView()."\n";
+
+$inputFile = new InputFile("image");
+echo $inputFile->getView()."\n";
